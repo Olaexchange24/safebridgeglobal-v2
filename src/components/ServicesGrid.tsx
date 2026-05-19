@@ -45,7 +45,7 @@ export function ServicesGrid() {
     <section id="services" className="py-20 md:py-28">
       <div className="container mx-auto max-w-7xl px-4 md:px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <div className="inline-flex items-center gap-2 rounded-full bg-gold/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-gold-foreground">
+          <div className="inline-flex items-center gap-2 rounded-full bg-gold/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-gold">
             Our Services
           </div>
           <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
@@ -73,7 +73,7 @@ export function ServicesGrid() {
                   href={waLink(s.msg)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-all hover:gap-3 hover:text-gold-foreground"
+                  className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-all hover:gap-3 hover:text-gold"
                 >
                   Start Order <ArrowRight className="h-4 w-4" />
                 </a>
