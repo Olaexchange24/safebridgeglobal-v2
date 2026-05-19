@@ -73,9 +73,10 @@ export function ServicesGrid() {
                   href={waLink(s.msg)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-all hover:gap-3 hover:text-gold"
+                  className="mt-6 inline-flex items-center gap-2 rounded-full border border-gold/40 bg-black/40 px-4 py-2 text-sm font-semibold text-gold shadow-[0_0_20px_-8px_rgba(212,175,55,0.6)] ring-1 ring-gold/10 transition-all duration-300 hover:-translate-y-0.5 hover:border-gold hover:bg-gold/10 hover:shadow-[0_0_28px_-6px_rgba(212,175,55,0.9)] active:scale-95"
                 >
-                  Start Order <ArrowRight className="h-4 w-4" />
+                  Start Order
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
                 </a>
               </div>
             </div>
