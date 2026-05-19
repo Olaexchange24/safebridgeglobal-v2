@@ -75,11 +75,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "Safe Bridge RMB Exchange — Pay China Suppliers Safely" },
       { name: "description", content: "Trusted RMB exchange for Nigerian importers. Buy/Sell RMB, fund Alipay & WeChat, send to Chinese banks. Fast, secure, best rates." },
       { name: "author", content: "Safe Bridge RMB Exchange" },
-      { property: "og:title", content: "Safe Bridge RMB Exchange" },
-      { property: "og:description", content: "The safest bridge between Nigerian importers and Chinese suppliers." },
+      { property: "og:title", content: "Safe Bridge RMB Exchange — Pay China Suppliers Safely" },
+      { property: "og:description", content: "Trusted RMB exchange for Nigerian importers. Buy/Sell RMB, fund Alipay & WeChat, send to Chinese banks. Fast, secure, best rates." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Safe Bridge RMB Exchange — Pay China Suppliers Safely" },
+      { name: "twitter:description", content: "Trusted RMB exchange for Nigerian importers. Buy/Sell RMB, fund Alipay & WeChat, send to Chinese banks. Fast, secure, best rates." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/456c0980-ccad-4d9b-9148-b92958b76596" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/456c0980-ccad-4d9b-9148-b92958b76596" },
     ],
     links: [
       {
