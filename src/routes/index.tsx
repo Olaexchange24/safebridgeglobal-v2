@@ -7,6 +7,7 @@ import { ServicesGrid } from "@/components/ServicesGrid";
 import { HowItWorks } from "@/components/HowItWorks";
 import { WhyChoose } from "@/components/WhyChoose";
 import { Testimonials } from "@/components/Testimonials";
+import { TransactionProofs } from "@/components/TransactionProofs";
 import { FAQ } from "@/components/FAQ";
 import { ContactSection } from "@/components/ContactSection";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
@@ -31,6 +32,7 @@ function Index() {
         <ServicesGrid />
         <HowItWorks />
         <WhyChoose />
+        <TransactionProofs />
         <Testimonials />
         <FAQ />
         <ContactSection />
