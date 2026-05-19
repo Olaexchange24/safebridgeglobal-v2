@@ -36,7 +36,7 @@ export function SiteHeader() {
             href={waLink("Hi Safe Bridge, I'd like to start an order.")}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden h-10 items-center gap-2 rounded-full bg-[var(--gradient-gold)] px-5 text-sm font-semibold text-gold-foreground shadow-[var(--shadow-gold)] transition-transform hover:scale-105 md:inline-flex"
+            className="hidden h-10 items-center gap-2 rounded-full bg-[#0B3D2E] px-5 text-sm font-bold text-white shadow-[0_0_20px_-4px_rgba(16,185,129,0.5)] ring-1 ring-emerald-400/40 transition-all hover:scale-105 hover:bg-[#0d4b38] md:inline-flex"
           >
             <MessageCircle className="h-4 w-4" />
             Start Order
