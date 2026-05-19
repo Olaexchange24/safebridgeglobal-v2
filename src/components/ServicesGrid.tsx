@@ -1,4 +1,4 @@
-import { Banknote, Wallet, Smartphone, MessageSquare, Building2, ArrowRight } from "lucide-react";
+import { Banknote, Wallet, Smartphone, MessageSquare, Building2, Truck, ArrowRight } from "lucide-react";
 import { waLink } from "@/lib/whatsapp";
 
 const services = [
@@ -31,6 +31,12 @@ const services = [
     title: "Chinese Bank Transfers",
     desc: "Direct telegraphic transfers to ICBC, BOC, CCB and all major Chinese banks.",
     msg: "Hi, I need a Chinese bank transfer.",
+  },
+  {
+    icon: Truck,
+    title: "Supplier Direct Payments",
+    desc: "No RMB account? No problem. We pay your Chinese supplier directly on your behalf.",
+    msg: "Hi, I'd like you to pay my supplier directly.",
   },
 ];
 

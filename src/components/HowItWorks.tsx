@@ -1,10 +1,10 @@
-import { MessageCircle, Calculator, CreditCard, CheckCircle2 } from "lucide-react";
+import { MessageCircle, CreditCard, Send, CheckCircle2 } from "lucide-react";
 
 const steps = [
-  { icon: MessageCircle, title: "Contact Us", desc: "Send us a WhatsApp message with your order details." },
-  { icon: Calculator, title: "Get a Quote", desc: "Receive today's best rate and a clear invoice in seconds." },
-  { icon: CreditCard, title: "Pay in Naira", desc: "Transfer the Naira equivalent to our verified account." },
-  { icon: CheckCircle2, title: "RMB Delivered", desc: "Your supplier receives the RMB same day, every time." },
+  { icon: MessageCircle, title: "Send Payment Request", desc: "Message us on WhatsApp with the amount and channel you need." },
+  { icon: CreditCard, title: "Make Payment", desc: "Pay the Naira equivalent into our verified company account." },
+  { icon: Send, title: "Share Details", desc: "Send us the Alipay, WeChat or Chinese bank details to be funded." },
+  { icon: CheckCircle2, title: "Funding Completed", desc: "Funds land in the destination wallet or account instantly." },
 ];
 
 export function HowItWorks() {
