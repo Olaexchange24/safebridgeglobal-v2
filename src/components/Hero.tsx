@@ -1,16 +1,80 @@
-import { MessageCircle, ArrowRight, ShieldCheck, Zap, TrendingUp } from "lucide-react";
+import { MessageCircle, ArrowRight, ShieldCheck, Zap, TrendingUp, RefreshCw } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { waLink } from "@/lib/whatsapp";
 
-const rates = [
-  { pair: "RMB / NGN", rate: "232.50", trend: "+0.8%" },
-  { pair: "USD / RMB", rate: "7.18", trend: "-0.1%" },
-  { pair: "Alipay Top-up", rate: "Instant", trend: "Live" },
-  { pair: "WeChat Fund", rate: "Instant", trend: "Live" },
-  { pair: "Bank Transfer", rate: "Same-day", trend: "Live" },
-];
+type LiveRates = {
+  rmbNgn: string;
+  usdRmb: string;
+  updatedAt: Date | null;
+  loading: boolean;
+  error: string | null;
+};
+
+const REFRESH_MS = 3 * 60 * 1000; // 3 minutes
+
+function formatNumber(n: number, digits = 2) {
+  return n.toLocaleString("en-US", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+}
 
 export function Hero() {
+  const [live, setLive] = useState<LiveRates>({
+    rmbNgn: "—",
+    usdRmb: "—",
+    updatedAt: null,
+    loading: true,
+    error: null,
+  });
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function fetchRates() {
+      try {
+        const res = await fetch("https://open.er-api.com/v6/latest/USD");
+        if (!res.ok) throw new Error("network");
+        const data = (await res.json()) as { result?: string; rates?: Record<string, number> };
+        if (data.result !== "success" || !data.rates) throw new Error("bad response");
+        const usdNgn = data.rates.NGN;
+        const usdCny = data.rates.CNY;
+        if (!usdNgn || !usdCny) throw new Error("missing pairs");
+        const rmbNgn = usdNgn / usdCny;
+        if (cancelled) return;
+        setLive({
+          rmbNgn: formatNumber(rmbNgn, 2),
+          usdRmb: formatNumber(usdCny, 4),
+          updatedAt: new Date(),
+          loading: false,
+          error: null,
+        });
+      } catch (e) {
+        if (cancelled) return;
+        setLive((prev) => ({ ...prev, loading: false, error: "Rates temporarily unavailable" }));
+      }
+    }
+
+    fetchRates();
+    const id = setInterval(fetchRates, REFRESH_MS);
+    return () => {
+      cancelled = true;
+      clearInterval(id);
+    };
+  }, []);
+
+  const updatedLabel = live.updatedAt
+    ? `Updated ${live.updatedAt.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`
+    : live.loading
+    ? "Fetching live market data…"
+    : live.error ?? "—";
+
+  const rateRows = [
+    { pair: "RMB / NGN", rate: live.rmbNgn === "—" ? "—" : `₦${live.rmbNgn}`, trend: "Live Market Rate" },
+    { pair: "USD / RMB", rate: live.usdRmb, trend: "Live" },
+    { pair: "Alipay Funding", rate: "Instant", trend: "Live" },
+    { pair: "WeChat Funding", rate: "Instant", trend: "Live" },
+    { pair: "Bank Transfer", rate: "Same-day", trend: "Live" },
+  ];
+
   return (
     <section className="relative overflow-hidden bg-[var(--gradient-primary)] text-primary-foreground">
       {/* decorative blobs */}
@@ -58,32 +122,41 @@ export function Hero() {
 
           {/* rate card */}
           <div className="relative">
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[var(--shadow-elegant)] backdrop-blur-xl">
+            <div className="rounded-3xl border border-emerald-400/20 bg-black/60 p-6 shadow-[0_0_40px_-10px_rgba(16,185,129,0.45)] backdrop-blur-xl ring-1 ring-emerald-500/10">
               <div className="mb-4 flex items-center justify-between">
                 <div>
-                  <div className="text-xs font-medium uppercase tracking-wider text-gold">Live Rate Board</div>
-                  <div className="mt-1 text-sm text-primary-foreground/70">Updated continuously</div>
+                  <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-gold">
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                    </span>
+                    Live Market Rate
+                  </div>
+                  <div className="mt-1 text-xs text-white/60">{updatedLabel}</div>
                 </div>
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gold/20">
-                  <TrendingUp className="h-5 w-5 text-gold" />
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500/15 ring-1 ring-emerald-400/30">
+                  <RefreshCw className={`h-4 w-4 text-emerald-300 ${live.loading ? "animate-spin" : ""}`} />
                 </div>
               </div>
               <div className="space-y-2">
-                {rates.map((r) => (
-                  <div key={r.pair} className="flex items-center justify-between rounded-xl bg-white/5 px-4 py-3 transition-colors hover:bg-white/10">
-                    <div className="text-sm font-medium text-primary-foreground">{r.pair}</div>
+                {rateRows.map((r) => (
+                  <div key={r.pair} className="flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.03] px-4 py-3 transition-colors hover:border-emerald-400/30 hover:bg-emerald-500/5">
+                    <div className="text-sm font-medium text-white">{r.pair}</div>
                     <div className="flex items-baseline gap-3">
-                      <span className="font-semibold text-gold">{r.rate}</span>
-                      <span className="text-[11px] text-primary-foreground/60">{r.trend}</span>
+                      <span className="font-semibold text-white tabular-nums">{r.rate}</span>
+                      <span className="text-[11px] uppercase tracking-wide text-emerald-300/80">{r.trend}</span>
                     </div>
                   </div>
                 ))}
               </div>
+              <p className="mt-4 text-[11px] leading-relaxed text-white/50">
+                Rates update automatically based on market conditions. RMB/NGN is calculated live as USD/NGN ÷ USD/CNY.
+              </p>
               <a
                 href={waLink("Hi, please share your live rates.")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-5 flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-gold/15 text-sm font-semibold text-gold transition-colors hover:bg-gold/25"
+                className="mt-4 flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-emerald-500/15 text-sm font-semibold text-emerald-200 ring-1 ring-emerald-400/30 transition-colors hover:bg-emerald-500/25"
               >
                 Get Today's Best Rate <ArrowRight className="h-4 w-4" />
               </a>
