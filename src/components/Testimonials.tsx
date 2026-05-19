@@ -23,7 +23,7 @@ export function Testimonials() {
     <section className="bg-secondary/40 py-20 md:py-28">
       <div className="container mx-auto max-w-7xl px-4 md:px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <div className="inline-flex items-center gap-2 rounded-full bg-gold/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-gold-foreground">
+          <div className="inline-flex items-center gap-2 rounded-full bg-gold/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-gold">
             Testimonials
           </div>
           <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
