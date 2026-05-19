@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { MessageCircle, Mail, Phone, MapPin } from "lucide-react";
+import { MessageCircle, Mail, Phone, MapPin, Clock, Instagram } from "lucide-react";
 import { Logo } from "./Logo";
-import { waLink, WHATSAPP_NUMBER } from "@/lib/whatsapp";
+import { waLink } from "@/lib/whatsapp";
 
 export function SiteFooter() {
   return (
@@ -37,10 +37,21 @@ export function SiteFooter() {
           <div>
             <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gold">Contact</h4>
             <ul className="space-y-3 text-sm text-primary-foreground/70">
-              <li className="flex items-start gap-2"><Phone className="mt-0.5 h-4 w-4 text-gold" /> +{WHATSAPP_NUMBER}</li>
-              <li className="flex items-start gap-2"><Mail className="mt-0.5 h-4 w-4 text-gold" /> hello@safebridgermb.com</li>
-              <li className="flex items-start gap-2"><MapPin className="mt-0.5 h-4 w-4 text-gold" /> Lagos, Nigeria</li>
+              <li className="flex items-start gap-2"><Phone className="mt-0.5 h-4 w-4 shrink-0 text-gold" /><span>+2348165701336</span></li>
+              <li className="flex items-start gap-2"><Mail className="mt-0.5 h-4 w-4 shrink-0 text-gold" /><span>safebridgermb@gmail.com</span></li>
+              <li className="flex items-start gap-2"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold" /><span>Ojodu Berger, Lagos, Nigeria</span></li>
+              <li className="flex items-start gap-2"><Clock className="mt-0.5 h-4 w-4 shrink-0 text-gold" /><span>Open 24/7</span></li>
             </ul>
+            <div className="mt-5 flex gap-3">
+              <a href="https://instagram.com/safebridge_rmb" target="_blank" rel="noopener noreferrer" aria-label="Instagram @safebridge_rmb" className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-primary-foreground transition-colors hover:bg-gold hover:text-gold-foreground">
+                <Instagram className="h-4 w-4" />
+              </a>
+              <a href="https://tiktok.com/@safebridge_rmb" target="_blank" rel="noopener noreferrer" aria-label="TikTok @safebridge_rmb" className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-primary-foreground transition-colors hover:bg-gold hover:text-gold-foreground">
+                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
+                  <path d="M19.6 6.3a5.3 5.3 0 0 1-3.2-1.1 5.3 5.3 0 0 1-2-3.2h-3.1v13.1a2.7 2.7 0 1 1-2-2.6V9.4a5.8 5.8 0 1 0 5.1 5.7V9a8.4 8.4 0 0 0 5.2 1.8z"/>
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
         <div className="mt-10 border-t border-primary-foreground/10 pt-6 text-center text-xs text-primary-foreground/50">
