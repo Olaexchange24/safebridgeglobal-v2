@@ -1,26 +1,42 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
+import { Hero } from "@/components/Hero";
+import { StatsBand } from "@/components/StatsBand";
+import { ServicesGrid } from "@/components/ServicesGrid";
+import { HowItWorks } from "@/components/HowItWorks";
+import { WhyChoose } from "@/components/WhyChoose";
+import { Testimonials } from "@/components/Testimonials";
+import { FAQ } from "@/components/FAQ";
+import { ContactSection } from "@/components/ContactSection";
+import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Safe Bridge RMB Exchange — Pay China Suppliers Safely" },
+      { name: "description", content: "Trusted RMB exchange for Nigerian importers. Buy/Sell RMB, fund Alipay & WeChat, send to Chinese banks. Fast, secure, best rates." },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
+function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen bg-background">
+      <SiteHeader />
+      <main>
+        <Hero />
+        <StatsBand />
+        <ServicesGrid />
+        <HowItWorks />
+        <WhyChoose />
+        <Testimonials />
+        <FAQ />
+        <ContactSection />
+      </main>
+      <SiteFooter />
+      <WhatsAppFloat />
     </div>
   );
-}
-
-function Index() {
-  return <PlaceholderIndex />;
 }
