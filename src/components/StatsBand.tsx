@@ -1,8 +1,8 @@
 const stats = [
-  { value: "₦12B+", label: "Volume Settled" },
-  { value: "5,000+", label: "Happy Importers" },
-  { value: "< 1hr", label: "Avg. Delivery" },
-  { value: "99.9%", label: "Success Rate" },
+  { value: "₦100M+", label: "Volume Settled" },
+  { value: "< 10 min", label: "Avg. Delivery" },
+  { value: "100%", label: "Success Rate" },
+  { value: "24/7", label: "Available" },
 ];
 
 export function StatsBand() {
