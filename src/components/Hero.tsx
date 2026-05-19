@@ -27,11 +27,11 @@ export function Hero() {
               Trusted by 5,000+ Nigerian importers
             </div>
             <h1 className="text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">
-              Pay Your China Suppliers <span className="text-shimmer">Safely</span> & Instantly
+              Fast & Reliable <span className="text-shimmer">RMB Payments</span> To China
             </h1>
             <p className="mt-6 max-w-xl text-base text-primary-foreground/75 md:text-lg">
-              Buy and sell RMB at the best rates. Fund Alipay & WeChat, send direct bank
-              transfers to China — all backed by a team that treats every order like it's their own.
+              Buy and sell RMB instantly. We fund Alipay, WeChat, Chinese bank accounts
+              and also help pay suppliers directly — even if you don't have an RMB account.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
