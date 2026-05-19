@@ -21,7 +21,7 @@ export function ContactSection() {
               href={waLink("Hi Safe Bridge, I'd like to start an order.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 inline-flex h-13 items-center gap-2 rounded-full bg-[var(--gradient-gold)] px-7 py-3.5 text-base font-semibold text-gold-foreground shadow-[var(--shadow-gold)] transition-transform hover:scale-105"
+              className="mt-8 inline-flex h-13 items-center gap-2 rounded-full bg-[#0B3D2E] px-7 py-3.5 text-base font-bold text-white shadow-[0_0_30px_-5px_rgba(16,185,129,0.55)] ring-1 ring-emerald-400/40 transition-all hover:scale-105 hover:bg-[#0d4b38] hover:shadow-[0_0_40px_-5px_rgba(16,185,129,0.7)]"
             >
               <MessageCircle className="h-5 w-5" /> Start Order on WhatsApp
             </a>
