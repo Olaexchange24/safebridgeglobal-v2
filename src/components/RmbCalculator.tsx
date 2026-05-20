@@ -18,8 +18,15 @@ export function RmbCalculator() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const DEFAULTS: Record<Currency, string> = { NGN: "100000", USD: "1000", USDT: "1000" };
   const [currency, setCurrency] = useState<Currency>("NGN");
-  const [amount, setAmount] = useState<string>("1000000");
+  const [amount, setAmount] = useState<string>(DEFAULTS.NGN);
+  const [touched, setTouched] = useState(false);
+
+  function handleCurrencyChange(c: Currency) {
+    setCurrency(c);
+    if (!touched) setAmount(DEFAULTS[c]);
+  }
 
   useEffect(() => {
     let cancelled = false;
