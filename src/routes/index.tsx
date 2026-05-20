@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Hero } from "@/components/Hero";
+import { RmbCalculator } from "@/components/RmbCalculator";
 import { StatsBand } from "@/components/StatsBand";
 import { ServicesGrid } from "@/components/ServicesGrid";
 import { HowItWorks } from "@/components/HowItWorks";
@@ -36,6 +37,7 @@ function Index() {
       <SiteHeader />
       <main>
         <Hero />
+        <RmbCalculator />
         <StatsBand />
         <ServicesGrid />
         <HowItWorks />
