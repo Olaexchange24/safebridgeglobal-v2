@@ -10,9 +10,9 @@ import { FAQ } from "@/components/FAQ";
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Services — Safe Bridge RMB Exchange" },
-      { name: "description", content: "Buy & sell RMB, Alipay & WeChat funding, and direct Chinese bank transfers — every payment channel into China." },
-      { property: "og:title", content: "Services — Safe Bridge RMB Exchange" },
+      { title: "Services | Safe Bridge RMB Exchange" },
+      { name: "description", content: "Buy & sell RMB, Alipay & WeChat funding, and direct Chinese bank transfers. Every payment channel into China." },
+      { property: "og:title", content: "Services | Safe Bridge RMB Exchange" },
       { property: "og:description", content: "Every payment channel into China, in one trusted exchange." },
     ],
   }),

@@ -15,7 +15,7 @@ import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Safe Bridge RMB Exchange — Pay China Suppliers Safely" },
+      { title: "Safe Bridge RMB Exchange | Pay China Suppliers Safely" },
       { name: "description", content: "Trusted RMB exchange for Nigerian importers. Buy/Sell RMB, fund Alipay & WeChat, send to Chinese banks. Fast, secure, best rates." },
     ],
   }),

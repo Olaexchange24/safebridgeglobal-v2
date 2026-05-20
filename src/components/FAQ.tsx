@@ -6,7 +6,7 @@ const faqs = [
   { q: "Are there limits on order size?", a: "Whether you're funding a ¥500 Taobao order or a ¥2M factory invoice, we handle it. Larger orders may qualify for preferential pricing." },
   { q: "Is my payment safe?", a: "Absolutely. All payments are made to verified company accounts, every order is reconciled, and we provide receipts and Chinese-side confirmation for every transaction." },
   { q: "Which Chinese banks do you support?", a: "ICBC, Bank of China, China Construction Bank, Agricultural Bank of China, CMB, and all other major banks across mainland China." },
-  { q: "Do you charge any hidden fees?", a: "Never. The rate you're quoted is the rate you pay — no hidden surcharges, no processing fees." },
+  { q: "Do you charge any hidden fees?", a: "Never. The rate you're quoted is the rate you pay. No hidden surcharges, no processing fees." },
   { q: "How do I get started?", a: "Just tap any 'Start Order' button or message us on WhatsApp. We'll send a quote, confirm your details, and your funds will be on their way to China." },
 ];
 

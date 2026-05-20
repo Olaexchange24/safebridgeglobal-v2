@@ -17,7 +17,7 @@ const services = [
   {
     icon: Smartphone,
     title: "Alipay Funding",
-    desc: "Top up any Alipay wallet in minutes — perfect for Taobao, 1688 and Tmall orders.",
+    desc: "Top up any Alipay wallet in minutes. Perfect for Taobao, 1688 and Tmall orders.",
     msg: "Hi, I want to fund my Alipay.",
   },
   {

@@ -95,7 +95,7 @@ export function Hero() {
             </h1>
             <p className="mt-6 max-w-xl text-base text-primary-foreground/75 md:text-lg">
               Buy and sell RMB instantly. We fund Alipay, WeChat, Chinese bank accounts
-              and also help pay suppliers directly — even if you don't have an RMB account.
+              and also help pay suppliers directly, even if you don't have an RMB account.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
