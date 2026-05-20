@@ -10,7 +10,7 @@ import { Testimonials } from "@/components/Testimonials";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About — Safe Bridge RMB Exchange" },
+      { title: "About | Safe Bridge RMB Exchange" },
       { name: "description", content: "Safe Bridge is Nigeria's most trusted RMB exchange. Built by importers, for importers." },
       { property: "og:title", content: "About Safe Bridge RMB Exchange" },
       { property: "og:description", content: "Built by importers, for importers." },
@@ -50,7 +50,7 @@ function AboutPage() {
               <h2 className="text-3xl font-bold tracking-tight text-foreground">Our Promise</h2>
               <p className="mt-4 text-muted-foreground">
                 Every quote is honoured. Every order is reconciled. Every client is treated
-                like our biggest client — because to us, you are.
+                like our biggest client, because to us, you are.
               </p>
             </div>
           </div>

@@ -8,10 +8,10 @@ import { FAQ } from "@/components/FAQ";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Safe Bridge RMB Exchange" },
+      { title: "Contact | Safe Bridge RMB Exchange" },
       { name: "description", content: "Reach Safe Bridge on WhatsApp to start your RMB exchange order today." },
       { property: "og:title", content: "Contact Safe Bridge RMB Exchange" },
-      { property: "og:description", content: "Start your order on WhatsApp — fast replies, 7 days a week." },
+      { property: "og:description", content: "Start your order on WhatsApp. Fast replies, 7 days a week." },
     ],
   }),
   component: ContactPage,
