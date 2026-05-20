@@ -109,7 +109,7 @@ export function RmbCalculator() {
             {(["NGN", "USD", "USDT"] as Currency[]).map((c) => (
               <button
                 key={c}
-                onClick={() => setCurrency(c)}
+                onClick={() => handleCurrencyChange(c)}
                 className={`h-9 rounded-full text-xs font-semibold transition-all duration-300 ${
                   currency === c
                     ? "bg-gradient-to-r from-emerald-500 to-emerald-400 text-black shadow-[0_0_20px_-4px_rgba(16,185,129,0.7)]"
