@@ -13,7 +13,7 @@ export function SiteFooter() {
               <Logo />
             </div>
             <p className="max-w-sm text-sm text-primary-foreground/70">
-              The trusted bridge between Nigerian importers and Chinese suppliers — fast RMB exchange,
+              The trusted bridge between Nigerian importers and Chinese suppliers, fast RMB exchange,
               Alipay & WeChat funding, and direct bank transfers to China.
             </p>
             <a
