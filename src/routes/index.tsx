@@ -16,7 +16,15 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Safe Bridge RMB Exchange | Pay China Suppliers Safely" },
-      { name: "description", content: "Trusted RMB exchange for Nigerian importers. Buy/Sell RMB, fund Alipay & WeChat, send to Chinese banks. Fast, secure, best rates." },
+      { name: "description", content: "Trusted RMB exchange platform for Nigerian importers. Pay Chinese suppliers safely, fund Alipay, WeChat Pay, and Chinese bank accounts with fast confirmation." },
+      { property: "og:title", content: "Safe Bridge RMB Exchange | Pay China Suppliers Safely" },
+      { property: "og:description", content: "Trusted RMB exchange platform for Nigerian importers. Pay Chinese suppliers safely, fund Alipay, WeChat Pay, and Chinese bank accounts with fast confirmation." },
+      { property: "og:url", content: "https://safebridgeglobal.lovable.app/" },
+      { property: "og:image", content: "https://safebridgeglobal.lovable.app/og-image.jpg" },
+      { name: "twitter:image", content: "https://safebridgeglobal.lovable.app/og-image.jpg" },
+    ],
+    links: [
+      { rel: "canonical", href: "https://safebridgeglobal.lovable.app/" },
     ],
   }),
   component: Index,

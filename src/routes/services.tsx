@@ -14,6 +14,12 @@ export const Route = createFileRoute("/services")({
       { name: "description", content: "Buy & sell RMB, Alipay & WeChat funding, and direct Chinese bank transfers. Every payment channel into China." },
       { property: "og:title", content: "Services | Safe Bridge RMB Exchange" },
       { property: "og:description", content: "Every payment channel into China, in one trusted exchange." },
+      { property: "og:url", content: "https://safebridgeglobal.lovable.app/services" },
+      { property: "og:image", content: "https://safebridgeglobal.lovable.app/og-image.jpg" },
+      { name: "twitter:image", content: "https://safebridgeglobal.lovable.app/og-image.jpg" },
+    ],
+    links: [
+      { rel: "canonical", href: "https://safebridgeglobal.lovable.app/services" },
     ],
   }),
   component: ServicesPage,
