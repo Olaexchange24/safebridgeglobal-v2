@@ -163,11 +163,6 @@
   }
 }
 
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
 @keyframes float-slow {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-12px); }
@@ -189,9 +184,7 @@
 .animate-ticker { animation: ticker 30s linear infinite; }
 .text-shimmer {
   background: linear-gradient(90deg, var(--gold) 0%, oklch(0.92 0.12 95) 50%, var(--gold) 100%);
-  background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shimmer 3s linear infinite;
 }
