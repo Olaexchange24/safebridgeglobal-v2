@@ -129,7 +129,7 @@ export function RmbCalculator() {
               <input
                 inputMode="decimal"
                 value={amount}
-                onChange={(e) => setAmount(e.target.value.replace(/[^0-9.]/g, ""))}
+                onChange={(e) => { setTouched(true); setAmount(e.target.value.replace(/[^0-9.]/g, "")); }}
                 placeholder="0.00"
                 className="w-full bg-transparent text-2xl font-semibold text-white outline-none placeholder:text-white/30 tabular-nums md:text-3xl"
               />
