@@ -18,8 +18,15 @@ export function RmbCalculator() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const DEFAULTS: Record<Currency, string> = { NGN: "100000", USD: "1000", USDT: "1000" };
   const [currency, setCurrency] = useState<Currency>("NGN");
-  const [amount, setAmount] = useState<string>("1000000");
+  const [amount, setAmount] = useState<string>(DEFAULTS.NGN);
+  const [touched, setTouched] = useState(false);
+
+  function handleCurrencyChange(c: Currency) {
+    setCurrency(c);
+    if (!touched) setAmount(DEFAULTS[c]);
+  }
 
   useEffect(() => {
     let cancelled = false;
@@ -102,7 +109,7 @@ export function RmbCalculator() {
             {(["NGN", "USD", "USDT"] as Currency[]).map((c) => (
               <button
                 key={c}
-                onClick={() => setCurrency(c)}
+                onClick={() => handleCurrencyChange(c)}
                 className={`h-9 rounded-full text-xs font-semibold transition-all duration-300 ${
                   currency === c
                     ? "bg-gradient-to-r from-emerald-500 to-emerald-400 text-black shadow-[0_0_20px_-4px_rgba(16,185,129,0.7)]"
@@ -122,7 +129,7 @@ export function RmbCalculator() {
               <input
                 inputMode="decimal"
                 value={amount}
-                onChange={(e) => setAmount(e.target.value.replace(/[^0-9.]/g, ""))}
+                onChange={(e) => { setTouched(true); setAmount(e.target.value.replace(/[^0-9.]/g, "")); }}
                 placeholder="0.00"
                 className="w-full bg-transparent text-2xl font-semibold text-white outline-none placeholder:text-white/30 tabular-nums md:text-3xl"
               />
