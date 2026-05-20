@@ -14,6 +14,12 @@ export const Route = createFileRoute("/about")({
       { name: "description", content: "Safe Bridge is Nigeria's most trusted RMB exchange. Built by importers, for importers." },
       { property: "og:title", content: "About Safe Bridge RMB Exchange" },
       { property: "og:description", content: "Built by importers, for importers." },
+      { property: "og:url", content: "https://safebridgeglobal.lovable.app/about" },
+      { property: "og:image", content: "https://safebridgeglobal.lovable.app/og-image.jpg" },
+      { name: "twitter:image", content: "https://safebridgeglobal.lovable.app/og-image.jpg" },
+    ],
+    links: [
+      { rel: "canonical", href: "https://safebridgeglobal.lovable.app/about" },
     ],
   }),
   component: AboutPage,
