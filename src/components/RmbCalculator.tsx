@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { ArrowRight, MessageCircle, RefreshCw, ShieldCheck, ArrowLeftRight } from "lucide-react";
 import { waLink } from "@/lib/whatsapp";
+import { getAdjustedRmbNgn } from "@/lib/rates";
 
 type Currency = "NGN" | "USD" | "USDT";
 
@@ -83,7 +84,10 @@ export function RmbCalculator() {
 
   const rmbPerUnit = useMemo(() => {
     if (!usdNgn || !usdCny) return 0;
-    if (currency === "NGN") return usdCny / usdNgn; // RMB per 1 NGN
+    if (currency === "NGN") {
+      const adjusted = getAdjustedRmbNgn(usdNgn, usdCny); // NGN per 1 RMB (with margin)
+      return adjusted ? 1 / adjusted : 0;
+    }
     return usdCny; // RMB per 1 USD / USDT
   }, [currency, usdNgn, usdCny]);
 
@@ -92,7 +96,7 @@ export function RmbCalculator() {
 
   const rateLabel = useMemo(() => {
     if (!usdNgn || !usdCny) return "—";
-    if (currency === "NGN") return `₦${formatAmount(usdNgn / usdCny, 2)} = ¥1`;
+    if (currency === "NGN") return `₦${formatAmount(getAdjustedRmbNgn(usdNgn, usdCny), 2)} = ¥1`;
     return `$1 = ¥${formatAmount(usdCny, 4)}`;
   }, [currency, usdNgn, usdCny]);
 

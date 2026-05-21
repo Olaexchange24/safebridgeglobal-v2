@@ -2,6 +2,7 @@ import { MessageCircle, ArrowRight, ShieldCheck, Zap, TrendingUp, RefreshCw } fr
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { waLink } from "@/lib/whatsapp";
+import { getAdjustedRmbNgn } from "@/lib/rates";
 
 type LiveRates = {
   rmbNgn: string;
@@ -38,7 +39,7 @@ export function Hero() {
         const usdNgn = data.rates.NGN;
         const usdCny = data.rates.CNY;
         if (!usdNgn || !usdCny) throw new Error("missing pairs");
-        const rmbNgn = usdNgn / usdCny;
+        const rmbNgn = getAdjustedRmbNgn(usdNgn, usdCny);
         if (cancelled) return;
         setLive({
           rmbNgn: formatNumber(rmbNgn, 2),
