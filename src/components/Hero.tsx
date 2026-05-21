@@ -69,7 +69,7 @@ export function Hero() {
     : live.error ?? "—";
 
   const rateRows = [
-    { pair: "RMB / NGN", rate: live.rmbNgn === "—" ? "—" : `₦${live.rmbNgn}`, trend: "Live Market Rate" },
+    { pair: "RMB / NGN", rate: live.rmbNgn === "—" ? "—" : `₦${live.rmbNgn}`, trend: "Live" },
     { pair: "USD / RMB", rate: live.usdRmb, trend: "Live" },
     { pair: "Alipay Funding", rate: "Instant", trend: "Live" },
     { pair: "WeChat Funding", rate: "Instant", trend: "Live" },
@@ -141,12 +141,10 @@ export function Hero() {
               </div>
               <div className="space-y-2">
                 {rateRows.map((r) => (
-                  <div key={r.pair} className="flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.03] px-4 py-3 transition-colors hover:border-emerald-400/30 hover:bg-emerald-500/5">
-                    <div className="text-sm font-medium text-white">{r.pair}</div>
-                    <div className="flex items-baseline gap-3">
-                      <span className="font-semibold text-white tabular-nums">{r.rate}</span>
-                      <span className="text-[11px] uppercase tracking-wide text-emerald-300/80">{r.trend}</span>
-                    </div>
+                  <div key={r.pair} className="flex items-center gap-3 rounded-xl border border-white/5 bg-white/[0.03] px-4 py-3 transition-colors hover:border-emerald-400/30 hover:bg-emerald-500/5">
+                    <div className="flex-1 min-w-0 text-sm font-medium text-white truncate">{r.pair}</div>
+                    <div className="w-24 text-right font-semibold text-white tabular-nums">{r.rate}</div>
+                    <div className="w-12 text-right text-[11px] uppercase tracking-wide text-emerald-300/80">{r.trend}</div>
                   </div>
                 ))}
               </div>
