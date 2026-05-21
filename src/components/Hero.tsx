@@ -69,7 +69,7 @@ export function Hero() {
     : live.error ?? "—";
 
   const rateRows = [
-    { pair: "RMB / NGN", rate: live.rmbNgn === "—" ? "—" : `₦${live.rmbNgn}`, trend: "Live Market Rate" },
+    { pair: "RMB / NGN", rate: live.rmbNgn === "—" ? "—" : `₦${live.rmbNgn}`, trend: "Live" },
     { pair: "USD / RMB", rate: live.usdRmb, trend: "Live" },
     { pair: "Alipay Funding", rate: "Instant", trend: "Live" },
     { pair: "WeChat Funding", rate: "Instant", trend: "Live" },
