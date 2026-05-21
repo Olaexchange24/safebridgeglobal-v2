@@ -1,4 +1,4 @@
-import { MessageCircle, CreditCard, Send, CheckCircle2, ShieldCheck } from "lucide-react";
+import { MessageCircle, CreditCard, Send, CheckCircle2 } from "lucide-react";
 
 const steps = [
   { icon: MessageCircle, title: "Send Payment Request", desc: "Message us on WhatsApp with the amount and channel you need." },
@@ -35,21 +35,6 @@ export function HowItWorks() {
               <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
             </div>
           ))}
-        </div>
-
-        {/* Payment safety block */}
-        <div className="mt-20 rounded-2xl border border-border bg-card p-8 md:p-12">
-          <div className="mx-auto max-w-3xl text-center">
-            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-gold/10 text-gold">
-              <ShieldCheck className="h-7 w-7" />
-            </div>
-            <h3 className="mt-6 text-2xl font-bold tracking-tight text-foreground md:text-3xl">
-              Is my payment safe?
-            </h3>
-            <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-              Yes, your payment is safe with us. Every payment is confirmed properly, and we keep you updated until your order is completed. We also provide proof and confirmation for every transaction.
-            </p>
-          </div>
         </div>
       </div>
     </section>

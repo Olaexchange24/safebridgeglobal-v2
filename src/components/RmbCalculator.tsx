@@ -6,16 +6,32 @@ type Currency = "NGN" | "USD" | "USDT";
 
 const REFRESH_MS = 3 * 60 * 1000;
 
+// Sensible fallback rates so the UI is instantly usable while the live fetch resolves.
+const FALLBACK_USD_NGN = 1530;
+const FALLBACK_USD_CNY = 7.24;
+const RATES_CACHE_KEY = "sb_rates_cache_v1";
+
 function formatAmount(n: number, digits = 2) {
   if (!isFinite(n)) return "0.00";
   return n.toLocaleString("en-US", { minimumFractionDigits: digits, maximumFractionDigits: digits });
 }
 
 export function RmbCalculator() {
-  const [usdNgn, setUsdNgn] = useState<number | null>(null);
-  const [usdCny, setUsdCny] = useState<number | null>(null);
-  const [updatedAt, setUpdatedAt] = useState<Date | null>(null);
-  const [loading, setLoading] = useState(true);
+  const cached = (() => {
+    if (typeof window === "undefined") return null;
+    try {
+      const raw = localStorage.getItem(RATES_CACHE_KEY);
+      if (!raw) return null;
+      return JSON.parse(raw) as { usdNgn: number; usdCny: number; ts: number };
+    } catch {
+      return null;
+    }
+  })();
+
+  const [usdNgn, setUsdNgn] = useState<number>(cached?.usdNgn ?? FALLBACK_USD_NGN);
+  const [usdCny, setUsdCny] = useState<number>(cached?.usdCny ?? FALLBACK_USD_CNY);
+  const [updatedAt, setUpdatedAt] = useState<Date | null>(cached ? new Date(cached.ts) : null);
+  const [loading, setLoading] = useState(!cached);
   const [error, setError] = useState<string | null>(null);
 
   const DEFAULTS: Record<Currency, string> = { NGN: "100000", USD: "1000", USDT: "1000" };
@@ -39,13 +55,22 @@ export function RmbCalculator() {
         if (cancelled) return;
         setUsdNgn(data.rates.NGN);
         setUsdCny(data.rates.CNY);
-        setUpdatedAt(new Date());
+        const now = new Date();
+        setUpdatedAt(now);
+        try {
+          localStorage.setItem(
+            RATES_CACHE_KEY,
+            JSON.stringify({ usdNgn: data.rates.NGN, usdCny: data.rates.CNY, ts: now.getTime() }),
+          );
+        } catch {
+          /* ignore quota errors */
+        }
         setLoading(false);
         setError(null);
       } catch {
         if (cancelled) return;
         setLoading(false);
-        setError("Rates temporarily unavailable");
+        // Keep fallback/cached values visible; just stop the spinner.
       }
     }
     fetchRates();
