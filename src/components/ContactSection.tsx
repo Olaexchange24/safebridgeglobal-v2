@@ -31,7 +31,7 @@ export function ContactSection() {
             {[
               { icon: Phone, label: "WhatsApp / Call", value: "+2348165701336" },
               { icon: Mail, label: "Email", value: "safebridgermb@gmail.com" },
-              { icon: MapPin, label: "Office", value: "Ojodu Berger, Lagos, Nigeria" },
+              { icon: MapPin, label: "Office", value: "1a Akinyemi Ave, Lekki Phase 1, Lagos, Nigeria" },
               { icon: Clock, label: "Hours", value: "Open 24/7" },
             ].map((c) => (
               <div key={c.label} className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur">
