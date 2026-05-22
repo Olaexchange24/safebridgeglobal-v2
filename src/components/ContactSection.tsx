@@ -30,7 +30,7 @@ export function ContactSection() {
           <div className="grid gap-4 sm:grid-cols-2">
             {[
               { icon: Phone, label: "WhatsApp / Call", value: "+2348165701336" },
-              { icon: Mail, label: "Email", value: "safebridgermb@gmail.com" },
+              { icon: Mail, label: "Email", value: "support@safebridgeglobal.site" },
               { icon: MapPin, label: "Office", value: "1a Akinyemi Ave, Lekki Phase 1, Lagos, Nigeria" },
               { icon: Clock, label: "Hours", value: "Open 24/7" },
             ].map((c) => (
