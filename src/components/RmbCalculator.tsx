@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowRight, MessageCircle, RefreshCw, ShieldCheck, ArrowLeftRight } from "lucide-react";
 import { waLink } from "@/lib/whatsapp";
 import { getAdjustedRmbNgn } from "@/lib/rates";
@@ -15,6 +15,36 @@ const RATES_CACHE_KEY = "sb_rates_cache_v1";
 function formatAmount(n: number, digits = 2) {
   if (!isFinite(n)) return "0.00";
   return n.toLocaleString("en-US", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+}
+
+// Strip everything but digits + a single decimal point.
+function sanitizeNumeric(value: string): string {
+  let v = value.replace(/[^0-9.]/g, "");
+  const firstDot = v.indexOf(".");
+  if (firstDot !== -1) {
+    v = v.slice(0, firstDot + 1) + v.slice(firstDot + 1).replace(/\./g, "");
+  }
+  // strip leading zeros like "0005" -> "5" but keep "0." and "0"
+  if (/^0\d/.test(v)) v = v.replace(/^0+/, "");
+  return v;
+}
+
+// Visual comma formatting that preserves a trailing dot / decimals while typing.
+function formatWithCommas(value: string): string {
+  if (!value) return "";
+  const [intPart, decPart] = value.split(".");
+  const intFmt = (intPart || "0").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return decPart !== undefined ? `${intFmt}.${decPart}` : intFmt;
+}
+
+function toNumber(s: string): number {
+  const n = parseFloat(s);
+  return isFinite(n) ? n : 0;
+}
+
+function trimZeros(s: string): string {
+  if (!s.includes(".")) return s;
+  return s.replace(/\.?0+$/, "") || "0";
 }
 
 export function RmbCalculator() {
@@ -37,12 +67,17 @@ export function RmbCalculator() {
 
   const DEFAULTS: Record<Currency, string> = { NGN: "100000", USD: "1000", USDT: "1000" };
   const [currency, setCurrency] = useState<Currency>("NGN");
-  const [amount, setAmount] = useState<string>(DEFAULTS.NGN);
+  const [sendStr, setSendStr] = useState<string>(DEFAULTS.NGN);
+  const [receiveStr, setReceiveStr] = useState<string>("");
   const [touched, setTouched] = useState(false);
+  const lastEdited = useRef<"send" | "receive">("send");
 
   function handleCurrencyChange(c: Currency) {
     setCurrency(c);
-    if (!touched) setAmount(DEFAULTS[c]);
+    if (!touched) {
+      lastEdited.current = "send";
+      setSendStr(DEFAULTS[c]);
+    }
   }
 
   useEffect(() => {
@@ -91,8 +126,41 @@ export function RmbCalculator() {
     return usdCny; // RMB per 1 USD / USDT
   }, [currency, usdNgn, usdCny]);
 
-  const parsed = parseFloat(amount.replace(/,/g, "")) || 0;
-  const rmb = parsed * rmbPerUnit;
+  // Recompute the non-edited field whenever the rate or currency changes.
+  useEffect(() => {
+    if (!rmbPerUnit) return;
+    if (lastEdited.current === "send") {
+      if (!sendStr) { setReceiveStr(""); return; }
+      setReceiveStr(trimZeros((toNumber(sendStr) * rmbPerUnit).toFixed(2)));
+    } else {
+      if (!receiveStr) { setSendStr(""); return; }
+      setSendStr(trimZeros((toNumber(receiveStr) / rmbPerUnit).toFixed(2)));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rmbPerUnit]);
+
+  function onSendChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const raw = sanitizeNumeric(e.target.value);
+    setTouched(true);
+    lastEdited.current = "send";
+    setSendStr(raw);
+    if (!raw) { setReceiveStr(""); return; }
+    if (!rmbPerUnit) return;
+    setReceiveStr(trimZeros((toNumber(raw) * rmbPerUnit).toFixed(2)));
+  }
+
+  function onReceiveChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const raw = sanitizeNumeric(e.target.value);
+    setTouched(true);
+    lastEdited.current = "receive";
+    setReceiveStr(raw);
+    if (!raw) { setSendStr(""); return; }
+    if (!rmbPerUnit) return;
+    setSendStr(trimZeros((toNumber(raw) / rmbPerUnit).toFixed(2)));
+  }
+
+  const parsedSend = toNumber(sendStr);
+  const parsedReceive = toNumber(receiveStr);
 
   const rateLabel = useMemo(() => {
     if (!usdNgn || !usdCny) return "—";
@@ -108,7 +176,7 @@ export function RmbCalculator() {
 
   const symbols: Record<Currency, string> = { NGN: "₦", USD: "$", USDT: "$" };
 
-  const waMessage = `Hi Safe Bridge, I'd like to convert ${symbols[currency]}${formatAmount(parsed, 2)} ${currency} to RMB (≈ ¥${formatAmount(rmb, 2)}). Please start a secure payment.`;
+  const waMessage = `Hi Safe Bridge, I'd like to convert ${symbols[currency]}${formatAmount(parsedSend, 2)} ${currency} to RMB (≈ ¥${formatAmount(parsedReceive, 2)}). Please start a secure payment.`;
 
   return (
     <section className="relative overflow-hidden bg-background py-20 md:py-24">
@@ -157,8 +225,9 @@ export function RmbCalculator() {
               <span className="text-lg font-semibold text-white/70">{symbols[currency]}</span>
               <input
                 inputMode="decimal"
-                value={amount}
-                onChange={(e) => { setTouched(true); setAmount(e.target.value.replace(/[^0-9.]/g, "")); }}
+                pattern="[0-9]*"
+                value={formatWithCommas(sendStr)}
+                onChange={onSendChange}
                 placeholder="0.00"
                 className="w-full bg-transparent text-2xl font-semibold text-white outline-none placeholder:text-white/30 tabular-nums md:text-3xl"
               />
@@ -173,20 +242,22 @@ export function RmbCalculator() {
             </div>
           </div>
 
-          {/* output */}
-          <div className="rounded-2xl border border-emerald-400/20 bg-emerald-500/5 px-4 py-3">
+          {/* output (editable) */}
+          <label className="block">
             <span className="text-[11px] font-medium uppercase tracking-wider text-emerald-300/80">You receive (indicative)</span>
-            <div className="mt-1 flex items-baseline gap-3">
+            <div className="mt-2 flex items-center gap-3 rounded-2xl border border-emerald-400/20 bg-emerald-500/5 px-4 py-3 transition-colors focus-within:border-emerald-400/60 focus-within:ring-1 focus-within:ring-emerald-400/40">
               <span className="text-lg font-semibold text-emerald-300">¥</span>
-              <span
-                key={rmb.toFixed(2)}
-                className="animate-fade-in text-2xl font-bold text-white tabular-nums md:text-3xl"
-              >
-                {formatAmount(rmb, 2)}
-              </span>
-              <span className="ml-auto text-xs font-semibold text-emerald-300/80">RMB</span>
+              <input
+                inputMode="decimal"
+                pattern="[0-9]*"
+                value={formatWithCommas(receiveStr)}
+                onChange={onReceiveChange}
+                placeholder="0.00"
+                className="w-full bg-transparent text-2xl font-semibold text-white outline-none placeholder:text-white/30 tabular-nums md:text-3xl"
+              />
+              <span className="text-xs font-semibold text-emerald-300/80">RMB</span>
             </div>
-          </div>
+          </label>
 
           {/* meta */}
           <div className="mt-5 flex flex-wrap items-center justify-between gap-3 text-xs text-white/60">
