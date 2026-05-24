@@ -39,7 +39,7 @@ export function SiteFooter() {
             <ul className="space-y-3 text-sm text-primary-foreground/70">
               <li className="flex items-start gap-2"><Phone className="mt-0.5 h-4 w-4 shrink-0 text-gold" /><span>+2348165701336</span></li>
               <li className="flex items-start gap-2"><Mail className="mt-0.5 h-4 w-4 shrink-0 text-gold" /><span>safebridgermb@gmail.com</span></li>
-              <li className="flex items-start gap-2"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold" /><span>Ojodu Berger, Lagos, Nigeria</span></li>
+              <li className="flex items-start gap-2"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold" /><span>1A Akinyemi Avenue, Lekki Phase 1, Lagos</span></li>
               <li className="flex items-start gap-2"><Clock className="mt-0.5 h-4 w-4 shrink-0 text-gold" /><span>Open 24/7</span></li>
             </ul>
             <div className="mt-5 flex gap-3">
